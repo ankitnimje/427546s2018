@@ -1,0 +1,298 @@
+ACM Transactions on Graphics (TOG) - Recent
+
+@article{Chu:2017:SCP:3127587.3092818,
+ author = {Chu, Jieyu and Zafar, Nafees Bin and Yang, Xubo},
+ title = {A Schur Complement Preconditioner for Scalable Parallel Fluid Simulation},
+ journal = {ACM Trans. Graph.},
+ issue_date = {October 2017},
+ volume = {36},
+ number = {5},
+ month = jul,
+ year = {2017},
+ issn = {0730-0301},
+ pages = {163:1--163:11},
+ articleno = {163},
+ numpages = {11},
+ url = {http://doi.acm.org/10.1145/3092818},
+ doi = {10.1145/3092818},
+ acmid = {3092818},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {Parallel computing, Poisson solver, Schur complement, domain decomposition, fluid simulation},
+}
+
+
+ACM Transactions on Graphics (TOG) - Old
+
+@article{Haase:1992:MPM:146443.146452,
+ author = {Haase, Chet S. and Meyer, Gary W.},
+ title = {Modeling Pigmented Materials for Realistic Image Synthesis},
+ journal = {ACM Trans. Graph.},
+ issue_date = {Oct. 1992},
+ volume = {11},
+ number = {4},
+ month = oct,
+ year = {1992},
+ issn = {0730-0301},
+ pages = {305--335},
+ numpages = {31},
+ url = {http://doi.acm.org/10.1145/146443.146452},
+ doi = {10.1145/146443.146452},
+ acmid = {146452},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {color matching, color science, color selection, illumination modeling, pigment mixing},
+}
+
+
+IEEE Transactions on Visualization and Computer Graphics (TVCG) - Recent
+
+@ARTICLE{7728112, 
+author={Y. Cai and X. Guo and Y. Liu and W. Wang and W. Mao and Z. Zhong}, 
+journal={IEEE Transactions on Visualization and Computer Graphics}, 
+title={Surface Approximation via Asymptotic Optimal Geometric Partition}, 
+year={2017}, 
+volume={23}, 
+number={12}, 
+pages={2613-2626}, 
+keywords={approximation theory;mesh generation;principal component analysis;PCA-based energy;approximation theory;asymptotic optimal geometric partition;densely sampled triangular meshes;ellipsoidal variance proxy;optimal asymptotic behavior;polygonal-triangular surface remeshing;principle component analysis-based energy;surface approximation quality;surface partition;Approximation methods;Covariance matrices;Principal component analysis;Shape analysis;Surface reconstruction;Tensile stress;Surface approximation;approximation theory;optimal asymptotic behavior;principal component analysis;surface remeshing}, 
+doi={10.1109/TVCG.2016.2623779}, 
+ISSN={1077-2626}, 
+month={Dec},}
+
+
+IEEE Transactions on Visualization and Computer Graphics (TVCG) - Old
+
+@ARTICLE{1333668, 
+author={L. Raghupathi and L. Grisoni and F. Faure and D. Marchal and M. P. Cani and C. Chaillou}, 
+journal={IEEE Transactions on Visualization and Computer Graphics}, 
+title={An intestinal surgery simulator: real-time collision processing and visualization}, 
+year={2004}, 
+volume={10}, 
+number={6}, 
+pages={708-718}, 
+keywords={cancer;computational geometry;computer animation;data visualisation;medical image processing;rendering (computer graphics);sampling methods;simulation;surgery;user interfaces;virtual reality;3D skinning feature;VR-based trainer;animation complexity;colon cancer removal;intestinal surgery simulator;physically-based model;real-time collision processing;real-time visualization;self-colliding object;self-intersection problem;stochastic approach;user interaction;virtual organ;virtual reality;virtual surgical tool;Algorithm design and analysis;Animation;Cancer;Colon;Intestines;Object detection;Oncological surgery;Sampling methods;Stochastic processes;Visualization;Index Terms- Virtual reality;animation;curve and surface representation.;physically-based modeling;Algorithms;Biomedical Engineering;Colonic Neoplasms;Computer Graphics;Computer Simulation;Computer Systems;Computer-Assisted Instruction;Digestive System Surgical Procedures;Humans;Intestine, Small;Models, Anatomic;User-Computer Interface}, 
+doi={10.1109/TVCG.2004.36}, 
+ISSN={1077-2626}, 
+month={Nov},}
+
+
+IEEE Computer Graphics and Applications (CG&A) - Recent
+
+@ARTICLE{8047424, 
+author={T. von Landesberger and S. Bremm and M. Wunderlich}, 
+journal={IEEE Computer Graphics and Applications}, 
+title={Typology of Uncertainty in Static Geolocated Graphs for Visualization}, 
+year={2017}, 
+volume={37}, 
+number={5}, 
+pages={18-27}, 
+keywords={data visualisation;decision making;graph theory;decision making;geographic location;source data;static geolocated graphs;uncertainty typology;visualization;Data science;Edge detection;Geographic information systems;Topology;Visualization;GIS;computer graphics;edge uncertainty;geographic data science;networks;node uncertainty;spatial databases;visualization}, 
+doi={10.1109/MCG.2017.3621220}, 
+ISSN={0272-1716}, 
+month={},}
+
+
+IEEE Computer Graphics and Applications (CG&A) - Old
+
+@ARTICLE{4037720, 
+author={N. Magnenat-Thalmann and D. Thalmann}, 
+journal={IEEE Computer Graphics and Applications}, 
+title={The Use of High-Level 3-D Graphical Types in the Mira Animation System}, 
+year={1983}, 
+volume={3}, 
+number={9}, 
+pages={9-16}, 
+keywords={Animation;Application software;Arithmetic;Cameras;Computer graphics;Data structures;Robots;Software design;Software quality;Spline}, 
+doi={10.1109/MCG.1983.263348}, 
+ISSN={0272-1716}, 
+month={Dec},}
+
+
+ACM SIGGRAPH Computer Graphics (conference proceedings only, published as an ACM TOG issue) - Recent
+
+@proceedings{deJoya:2017:3139468,
+ title = {SA '17: SIGGRAPH Asia 2017 VR Showcase},
+ year = {2017},
+ isbn = {978-1-4503-5408-0},
+ location = {Bangkok, Thailand},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+}
+
+ACM SIGGRAPH Computer Graphics (conference proceedings only, published as an ACM TOG issue) - Old
+
+@Article{2013:2461912,
+ journal = {ACM Trans. Graph.},
+ year = {2013},
+ issn = {0730-0301},
+ volume = {32},
+ number = {4},
+ issue_date = {July 2013},
+ issue_description = {SIGGRAPH 2013 Conference Proceedings},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+key = {{$\!\!$}} ,
+}
+
+Computers and Graphics (C&G) - Recent
+
+@article
+{THOMAS2017115,
+
+title = "QCDVis: a tool for the visualisation of Quantum Chromodynamics (QCD) data",
+
+journal = "Computers & Graphics",
+
+volume = "67",
+
+pages = "115 - 126",
+
+year = "2017",
+
+issn = "0097-8493",
+
+doi = "https://doi.org/10.1016/j.cag.2017.07.006",
+
+url = "http://www.sciencedirect.com/science/article/pii/S0097849317300997",
+
+author = "Dean P. Thomas and Rita Borgo and Robert S. Laramee and Simon J. Hands",
+
+keywords = "Visualisation, Framework, Topology, Flexible isosurface, High dimensional, Lattice quantum chromodynamics"
+}
+
+
+Computers and Graphics (C&G) - Old
+
+@article
+{STORZ2006681,
+
+title = "Supporting content scheduling on situated public displays",
+
+journal = "Computers & Graphics",
+
+volume = "30",
+
+number = "5",
+
+pages = "681 - 691",
+
+year = "2006",
+
+issn = "0097-8493",
+
+doi = "https://doi.org/10.1016/j.cag.2006.07.002",
+
+url = "http://www.sciencedirect.com/science/article/pii/S0097849306001191",
+
+author = "Oliver Storz and Adrian Friday and Nigel Davies",
+
+keywords = "Digital signage, Public displays, Distributed systems infrastructure, Ubiquitous computing, Coordination"
+}
+
+
+Computer Graphics Forum (CGF) - Recent
+
+@article {CGF:CGF13268,
+author = {Li, Wei and Zheng, Anzong and You, Lihua and Yang, Xiaosong and Zhang, Jianjun and Liu, Ligang},
+title = {Rib-reinforced Shell Structure},
+journal = {Computer Graphics Forum},
+volume = {36},
+number = {7},
+issn = {1467-8659},
+url = {http://dx.doi.org/10.1111/cgf.13268},
+doi = {10.1111/cgf.13268},
+pages = {15--27},
+keywords = {Categories and Subject Descriptors (according to ACM CCS), I.3.5 [Computer Graphics]: Computational Geometry and Object Modeling—Curve, surface, solid and object representations, Architectural geometry, Rib-shell structure, Principal stress},
+year = {2017},
+}
+
+
+Computer Graphics Forum (CGF) - Old
+
+@article {CGF:CGF209,
+author = {Chiyokura, H and Kimura, F},
+title = {A New Surface Interpolation Method for Irregular Curve Models},
+journal = {Computer Graphics Forum},
+volume = {3},
+number = {3},
+publisher = {Blackwell Publishing Ltd},
+issn = {1467-8659},
+url = {http://dx.doi.org/10.1111/j.1467-8659.1984.tb00070.x},
+doi = {10.1111/j.1467-8659.1984.tb00070.x},
+pages = {209--218},
+year = {1984},
+}
+
+
+Visual Computer - Recent
+
+@Article
+{Cai2017,
+
+author="Cai, Jianping
+and Lin, Feng
+and Lee, Yong Tsui
+and Qian, Kemao
+and Seah, Hock Soon",
+
+title="Modeling and dynamics simulation for deformable objects of orthotropic materials",
+
+journal="The Visual Computer",
+
+year="2017",
+
+month="Oct",
+
+day="01",
+
+volume="33",
+
+number="10",
+
+pages="1307--1318",
+
+abstract="Simulation of physically based deformable models is a hot topic in computer graphics. Most of the existing models focus on isotropic materials and some on transversely isotropic materials. We propose a modeling method for orthotropic materials, which exhibits different mechanical behaviors along three orthogonal directions. First, constraints for the strain energy density in linear elastic models are analyzed, and a positive-definite elasticity tensor is derived for an orthotropic material. Second, an orthotropic deformation controlling frame-field is conceptualized and a frame construction tool is developed for users to define the desired material properties. A quaternion Laplacian smoothing algorithm is proposed, and several user-defined rotation minimizing frames are propagated into the entire body of the deformable object, which forms a smooth frame-field. Third, the corotational linear FEM model coupled with the orthonormal frame-field is formulated to realize a dynamics system, which can deal with large deformations. All the algorithms have been implemented in a comprehensive modeling and simulation system, and a GUI is provided to design the orthotropic model. Experiments on real-time deformation simulation and analytical comparisons are presented.",
+
+issn="1432-2315",
+
+doi="10.1007/s00371-016-1221-4",
+
+url="https://doi.org/10.1007/s00371-016-1221-4"
+}
+
+
+
+
+Visual Computer - Old
+
+@Article
+{Earnshaw1987,
+
+author="Earnshaw, Rae A.",
+
+title="The mathematics of computer graphics",
+
+journal="The Visual Computer",
+
+year="1987",
+
+month="Oct",
+
+day="01",
+
+volume="3",
+
+number="3",
+
+pages="115--124",
+
+abstract="Until relatively recently, researchers in computer graphics paid scant attention to the numerics of their computations. Computation was used as a simple tool to evaluate algorithms or transform data into some appropriate pictoral representation. Thus standard computer graphics texts have little to say about numerical methods, just as earlier numerical analysis textbooks had little to say about computer graphics. This is now changing, for the important reasons outlined in this paper.",
+
+issn="1432-2315",
+
+doi="10.1007/BF01962892",
+
+url="https://doi.org/10.1007/BF01962892"
+}
+
