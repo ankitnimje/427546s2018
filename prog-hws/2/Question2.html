@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>2d_Canvas_Programming</title>
+
+<script type="text/javascript">
+function clearTyre(event) {
+    ctx.fillStyle = "#FFFFFF";
+    ctx.beginPath();
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.closePath();
+}
+
+var canvas;
+var ctx;
+
+// initialization function when the page loads
+function init() {
+	var btnDrawWheel = document.getElementById('drawTyre');
+	btnDrawWheel.addEventListener('click',drawTyre,false);
+	canvas = document.getElementById('canvas');
+	ctx = canvas.getContext('2d');
+	colorProp = document.getElementById('colorProp');
+}
+
+
+function drawCircle() {
+	ctx.beginPath();
+	ctx.arc(Cx , Cy , radius , 0 , 2*Math.PI);                        					//arc(x(center) , y(center) , radius , startAngle , endAngle)
+	ctx.stroke();
+}
+
+function drawEllipse() {
+	ctx.beginPath();
+	ctx.ellipse(Cx , Cy , radius, radius2 , 45 * Math.PI/180 , 0 , 2 * Math.PI);     	//ellipse(x(center) , y(center) , rad1 , rad2 , rotation , sAngle , eAngle)
+	ctx.stroke();
+}
+
+// function to draw the polygon on the canvas
+function drawTyre() {
+	var numSides = document.getElementById('numSides').value;
+	var radius = document.getElementById('radius').value;
+
+
+	//For DriverScore 2 to 3
+	if (numSides < 4 && numSides > 1) {
+		//var x = "Polygon Tyre";
+		//window.alert(x);
+
+		var xCenter = parseInt(canvas.width/2);
+		var yCenter = parseInt(canvas.height/2);
+		// Clear the canvas
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.beginPath();
+		// Map the first vertice to start with
+		var xPos = xCenter + radius * Math.cos(2 * Math.PI * 0 / numSides);
+		var yPos = yCenter + radius * Math.sin(2 * Math.PI * 0 / numSides);
+		ctx.moveTo(xPos,yPos);
+
+		// Loop through the vertices and map the lines
+		for (i = 1; i <= numSides; i++) {
+		// Determine the coordinates of the next vertex
+		xPos = xCenter + radius * Math.cos(2 * Math.PI * i / numSides);
+		yPos = yCenter + radius * Math.sin(2 * Math.PI * i / numSides);
+		// Set line to the next vertex
+		ctx.lineTo(xPos,yPos);
+		}
+		
+		// Close our path of lines
+		ctx.closePath();
+		
+		// Set the line properties and draw the lines
+		ctx.lineWidth = 25;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+		
+		// Fill our new polygon
+		ctx.fillStyle = '#080A6B';
+		ctx.fill();
+	}
+
+	//For DriverScore 4 to 80
+	else if (numSides <= 80 && numSides > 3) {
+		//var x = "Polygon Tyre";
+		//window.alert(x);
+
+		var xCenter = parseInt(canvas.width/2);
+		var yCenter = parseInt(canvas.height/2);
+		// Clear the canvas
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		ctx.beginPath();
+		// Map the first vertice to start with
+		var xPos = xCenter + radius * Math.cos(2 * Math.PI * 0 / numSides);
+		var yPos = yCenter + radius * Math.sin(2 * Math.PI * 0 / numSides);
+		ctx.moveTo(xPos,yPos);
+
+		// Loop through the vertices and map the lines
+		for (i = 1; i <= numSides; i++) {
+		// Determine the coordinates of the next vertex
+		xPos = xCenter + radius * Math.cos(2 * Math.PI * i / numSides);
+		yPos = yCenter + radius * Math.sin(2 * Math.PI * i / numSides);
+		// Set line to the next vertex
+		ctx.lineTo(xPos,yPos);
+		}
+
+
+		//
+		for(i = 1; i <= 5; i++){
+			screwX = xCenter + (0.25 * radius) * Math.cos(2 * Math.PI * i / 5);
+			screwY = yCenter + (0.25 * radius) * Math.cos(2 * Math.PI * i / 5)
+		}
+		//
+
+
+
+		// Close our path of lines
+		ctx.closePath();
+		
+		// Set the line properties and draw the lines
+		ctx.lineWidth = 25;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+		
+		// Fill our new polygon
+		ctx.fillStyle = 'colorProp.value';
+		ctx.fill();
+
+
+		//Inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.65 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+
+		//Inner-inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.18 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+	}
+
+	//for DriverScore 81 to 99
+	else if (numSides < 100 && numSides > 80) {
+		//var x = "Ellipse Tyre";
+		//window.alert(x);
+
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+
+		ctx.beginPath();
+
+		ctx.lineWidth = 25;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		
+		radius2 = numSides / 100 * radius;
+		ctx.ellipse( canvas.width/2 , canvas.height/2 , radius, radius2 , 45 * Math.PI/180 , 0 , 2 * Math.PI);     	//ellipse(x(center) , y(center) , rad1 , rad2 , rotation , sAngle , eAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#080A6B';
+		ctx.fill();
+		ctx.stroke();
+
+		//Inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.65 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+
+		//Inner-inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.18 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+
+	}
+
+	else if (numSides == 100) {
+		var x = "Well Done, You get Original Wheels";
+		window.alert(x);
+
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		
+		ctx.beginPath();
+
+		ctx.lineWidth = 50;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+		
+		ctx.fillStyle = '#080A6B';
+		ctx.fill();
+		ctx.stroke();
+
+		//Inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.65 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+
+		//Inner-inner Circle
+		ctx.beginPath();
+
+		ctx.lineWidth = 15;
+		ctx.lineJoin = 'round';
+		ctx.stroke();
+
+		ctx.arc(canvas.width/2 , canvas.height/2 , 0.18 * radius , 0 , 2*Math.PI);											//arc(x(center) , y(center) , radius , startAngle , endAngle)
+		ctx.closePath();
+		ctx.stroke();
+
+		ctx.fillStyle = '#020B6A';
+		ctx.fill();
+		ctx.stroke();
+	}
+
+	else if (numSides == 1) {
+		var x = "Sorry!!! You cannot drive.";
+		window.alert(x);
+	}
+
+	else {
+		var x = "Wrong Input!!! Driver Score Must be between 3 and 100.";
+		window.alert(x);
+	}
+
+		// Retrieve the user input for the polygon
+		
+}
+
+
+// call the init function on page load
+window.addEventListener('load',init,false);
+</script>
+
+
+</head>
+
+
+<body>
+	<h2>Ankit Nimje - Computer Graphics 1 - Programming Assignment 2 :</h2>
+
+	<input id='clearTyre' type='button' value='Erase all' onclick ='clearTyre(event)'/> 
+
+	Driver Score: <input type="number" id="numSides" min="3" step="1" />
+	Radius of Tyre: <input type="number" id="radius" min="10" step="1" value="250" />
+	<button id="drawTyre">Show Tyre Design</button>
+
+	Color: <select id='colorProp'>
+	<option value='red'>red</option>
+	<option value='green'>green</option>
+	<option value='blue'>blue</option>
+	<option value='orange'>orange</option>
+	<option value='cornflowerblue' selected>cornflowerblue</option>
+	<option value='goldenrod'>goldenrod</option>
+	<option value='navy'>navy</option>
+	<option value='purple'>purple</option>
+	</select>
+
+	<canvas id="canvas" width="1000" height="600" style ="border:5px solid;"></canvas>
+	</canvas><br>
+</body>
+
+</html>
