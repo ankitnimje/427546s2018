@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+  <title>2d_Canvas_Programming</title>
+</head>
+<link="#0000ff" vlink="#800080"> 
+<body>
+<h2>Ankit Nimje - Computer Graphics 1 - Programming Assignment 2 :</h2>
+
+<input id='clearFractal' type='button' value='Erase all' onclick ='clearFractal(event)'/>
+
+Primitive:<select id='inputVal'>
+<option value='line' selected>line</option>
+<option value='polyline'>polyline</option>
+<option value='polygon'>polygon</option>
+<option value='rectangle'>rectangle</option>
+</select>
+Color: <select id='colorProp'>
+  <option value='maroon'>maroon</option>
+<option value='yellow'>yellow</option>
+<option value='blue'>blue</option>
+
+</select>
+Ratio(denominator):<input id="ratio" name="ratio">
+
+Iterations:<input id="iterations" name="iterations">
+
+<input id='draw' type='button' value='Click to Draw Fractal!' onclick ='drawFractal(event)'/>
+
+<canvas id="canvas" width="1000" height="600" style ="border:5px solid;"></canvas>
+</canvas>
+</ul>
+<hr>
+<em>
+
+ <script type="text/javascript">
+var canvas = document.getElementById('canvas'),
+    c = canvas.getContext('2d'),
+    ratio = document.getElementById('ratio'),
+    inputVal = document.getElementById('inputVal'),
+    iterations = document.getElementById("iterations"),
+    colorProp = document.getElementById('colorProp'),
+    deg = Math.PI / 180;
+
+function FractalOfLine(c, n, x, y, len, r) {
+    c.save();
+    c.translate(x, y);
+    c.moveTo(0, 0);
+    leg(n);
+    c.restore();
+    function leg(n) {
+        var j, k, angle;
+        c.save();
+        if (n == 0) {
+            c.lineTo(len, 0);
+        }
+        else {
+            c.scale(1/r, 1/r);
+            c.rotate(60 * deg);
+            leg(n - 1);
+            c.rotate(-120 * deg);
+            leg(n - 1);
+            c.rotate(0 * deg);
+            leg(n - 1);
+            c.rotate(120 * deg);
+            leg(n - 1);
+            if(r > 2){
+                angle = 240;
+                for(k = 6 ; k <= 2*r ;){
+                    c.rotate(0 * deg);
+                    leg(n - 1);
+                    j = k/2;
+                    if (j % 2 == 1){
+                        c.rotate(angle * deg);
+                        leg(n - 1);
+                        angle = angle + 240;
+                    }
+                    else{
+                        c.rotate(angle * deg);
+                        leg(n - 1);
+                        angle = angle + 120;
+                    }
+                    k = k + 2;
+                }
+            }
+        }
+        c.restore();
+        c.translate(len, 0);
+    }
+}
+
+function pFractal(c, n, x, y, len, r, an) {
+    c.save();
+    c.translate(x, y);
+    c.moveTo(0, 0);
+    c.rotate(an * deg);
+    leg(n);
+    c.restore();
+    function leg(n) {
+        var j, k, angle;
+        c.save();
+        if (n == 0) {
+            c.lineTo(len, 0);
+        }
+        else {
+            c.scale(1/r, 1/r);
+            c.rotate(60 * deg);
+            leg(n - 1);
+            c.rotate(-120 * deg);
+            leg(n - 1);
+            c.rotate(0 * deg);
+            leg(n - 1);
+            c.rotate(120 * deg);
+            leg(n - 1);
+            if(r > 2){
+                angle = 240;
+                for(k = 6 ; k <= 2*r ;){
+                    c.rotate(0 * deg);
+                    leg(n - 1);
+                    j = k/2;
+                    if (j % 2 == 1){
+                        c.rotate(angle * deg);
+                        leg(n - 1);
+                        angle = angle + 240;
+                    }
+                    else{
+                        c.rotate(angle * deg);
+                        leg(n - 1);
+                        angle = angle + 120;
+                    }
+                    k = k + 2;
+                }
+            }
+        }
+        c.restore();
+        c.translate(len, 0);
+    }
+}
+function clearFractal(event) {
+    c.fillStyle = "#FFFFFF";
+    c.beginPath();
+    c.fillRect(0,0,canvas.width,canvas.height);
+    c.closePath();
+}
+
+function clear(){
+    c.fillStyle = "#FFFFFF";
+    c.beginPath();
+    c.fillRect(0,0,canvas.width,canvas.height);
+    c.closePath();
+}
+
+function drawFractal(event){
+    var primtive = inputVal.value,
+        i = iterations.value,
+        r = ratio.value;
+
+    c.strokeStyle = colorProp.value;
+    c.lineWidth = Math.ceil(Math.random()*4);
+    if(primtive == "line"){
+        clear();
+        if(r == 1)
+        {
+            FractalOfLine(c, 0, 200, 300, 400, r);
+        }else{
+            FractalOfLine(c, i, 200, 300, 400, r);
+        }
+    }
+    if(primtive == "polyline"){
+        clear();
+        var x_p = 280, y_p = 150, len_edg = 200,
+            xd = yd = Math.pow((200*200 - 100*100),0.5);
+        c.save();
+        if(r == 1)
+        {
+            pFractal(c,0,x_p, y_p, len_edg, r, 120);
+            pFractal(c,0,x_p-100, y_p+yd, len_edg, r, 30);
+            pFractal(c,0,x_p-100+xd, y_p+yd+100, len_edg, r, -60);
+            pFractal(c,0,x_p-100+xd+100, y_p+yd+100-yd, len_edg, r, 0);
+            pFractal(c,0,x_p-100+xd+100+200, y_p+yd+100-yd, len_edg, r, 150);            
+        }else{
+            pFractal(c,i,x_p, y_p, len_edg, r, 120);
+            pFractal(c,i,x_p-100, y_p+yd, len_edg, r, 30);
+            pFractal(c,i,x_p-100+xd, y_p+yd+100, len_edg, r, -60);
+            pFractal(c,i,x_p-100+xd+100, y_p+yd+100-yd, len_edg, r, 0);
+            pFractal(c,i,x_p-100+xd+100+200, y_p+yd+100-yd, len_edg, r, 150);
+        }
+        c.restore();    
+    }
+    if(primtive == "polygon"){
+        clear();
+        var x_p = 280, y_p = 150, len_edg = 200,
+            xd = yd = Math.pow((200*200 - 100*100),0.5);
+        c.save();
+        if(r == 1)
+        {
+            pFractal(c,0,x_p, y_p, len_edg, r, 120);
+            pFractal(c,0,x_p-100, y_p+yd, len_edg, r, 30);
+            pFractal(c,0,x_p-100+xd, y_p+yd+100, len_edg, r, -60);
+            pFractal(c,0,x_p-100+xd+100, y_p+yd+100-yd, len_edg, r, 0);
+            pFractal(c,0,x_p-100+xd+100+200, y_p+yd+100-yd, len_edg, r, 150);
+            len_edg = Math.pow((2*(200*200)),0.5);
+            pFractal(c,0,x_p,y_p,len_edg,r, 45); 
+        }else{
+            pFractal(c,i,x_p, y_p, len_edg, r, 120);
+            pFractal(c,i,x_p-100, y_p+yd, len_edg, r, 30);
+            pFractal(c,i,x_p-100+xd, y_p+yd+100, len_edg, r, -60);
+            pFractal(c,i,x_p-100+xd+100, y_p+yd+100-yd, len_edg, r, 0);
+            pFractal(c,i,x_p-100+xd+100+200, y_p+yd+100-yd, len_edg, r, 150);
+            len_edg = Math.pow((2*(200*200)),0.5);
+            pFractal(c,i,x_p,y_p,len_edg,r, 45);
+        }
+        c.restore(); 
+    }
+    if(primtive == "rectangle"){
+        clear();
+        var x_p = 150, y_p = 150width = 350, height = 300;
+        c.save();
+        if(r == 1)
+        {
+            pFractal(c,0,x_p, y_p, height, r, 90);
+            pFractal(c,0,x_p, y_p+height, width, r, 0);
+            pFractal(c,0,x_p+width, y_p+height, height, r, -90);
+            pFractal(c,0,x_p+width, y_p, width, r, -180);
+        }else{
+            pFractal(c,i,x_p, y_p, height, r, 90);
+            pFractal(c,i,x_p, y_p+height, width, r, 0);
+            pFractal(c,i,x_p+width, y_p+height, height, r, -90);
+            pFractal(c,i,x_p+width, y_p, width, r, -180);
+        }
+        c.restore(); 
+    }
+    c.stroke();
+}
+  </script>
+</em>
+</body>
+</html>
