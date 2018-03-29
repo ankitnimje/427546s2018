@@ -1,0 +1,2 @@
+This project does not need a manual till now.
+For better understatnding of project please refer to README.txt (http://www.cs.uml.edu/~animje/427546s2018/finalProject/README.txt)

@@ -1,0 +1,36 @@
+ Project Report 1
+ Home Work 3
+
+ By Nimje, Ankit
+ Student ID: 01760450
+
+ March 28, 2018
+
+
+ As per final project guidelines, I will be implementing a 3D object and apply respective operations on it.
+ For my project, I have choosen "A Snooker Table" as an object.
+ In this assignment, I have given 2D elevations of a snooker table such as Top View, Front View and Side View and will use this design as my final project object (elevations can be found in hw3.html file).
+
+
+In future home work assignments (weekly project submissions), I will try to make and improve actual representation of a snooker table with more accurate colors, lights, camera angles, etc.
+Some of the features I will try to implement:
+- A snooker table with more accurate color and design
+- Focus light from top should be considered for lights and shadows
+- Some snooker balls on the table for more interactive view
+- Transformations such as Translate, Rotate, Scale, SHere
+- Different Camera Views and lighting conditions
+- Views from different perspectives
+- Some environmental background such as wall, some extra tables, windows, etc.
+
+
+To implement this project, I will use WebGl with JavaScript for programming because of its many advantages.
+- WebGL is a JavaScript abstraction over OpenGL that utilizes the Canvas element to display content 
+- WebGL lets us render 3d graphics without using plugins
+- WebGL supports different hardware extensions
+- WebGL is supported in all major web browsers
+- Additionally, graphical display technologies such as css, svg, bootstrap, jquery can be used
+
+I hope to perform better in all next submissions and learn many new skills.
+
+"This is entirely my own work, except as disclosed in the documentation."
+Signed - Ankit Nimje
