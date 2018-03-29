@@ -31,6 +31,3 @@ To implement this project, I will use WebGl with JavaScript for programming beca
 - Additionally, graphical display technologies such as css, svg, bootstrap, jquery can be used
 
 I hope to perform better in all next submissions and learn many new skills.
-
-"This is entirely my own work, except as disclosed in the documentation."
-Signed - Ankit Nimje
