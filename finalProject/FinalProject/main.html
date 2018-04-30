@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>SnookerTable</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel=stylesheet href="css/base.css"/>
+</head>
+<body>
+
+<script src="js/Three.js"></script>
+<script src="js/Detector.js"></script>
+<script src="js/Stats.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/THREEx.KeyboardState.js"></script>
+<script src="js/THREEx.FullScreen.js"></script>
+<script src="js/THREEx.WindowResize.js"></script>
+
+<script type='text/javascript' src='js/DAT.GUI.min.js'></script>
+
+<!-- jQuery code to display an information button and box when clicked. -->
+<script src="js/jquery-1.9.1.js"></script>
+<script src="js/jquery-ui.js"></script>
+<link rel=stylesheet href="css/jquery-ui.css" />
+<link rel=stylesheet href="css/info.css"/>
+<script src="js/info.js"></script>
+
+<!-- ------------------------------------------------------------ -->
+
+<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+<script>
+// MAIN
+
+// standard global variables
+var container, scene, camera, renderer, controls, stats;
+var keyboard = new THREEx.KeyboardState();
+var clock = new THREE.Clock();
+
+// custom global variables
+var cube;
+var parameters;
+var gui;
+
+init();
+animate();
+
+// FUNCTIONS 		
+function init() 
+{
+	// SCENE
+	scene = new THREE.Scene();
+	// CAMERA
+	var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
+	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
+	scene.add(camera);
+	camera.position.set(0,550,800);
+	camera.lookAt(scene.position);	
+	// RENDERER
+	if ( Detector.webgl )
+		renderer = new THREE.WebGLRenderer( {antialias:true} );
+	else
+		renderer = new THREE.CanvasRenderer(); 
+	renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	container = document.getElementById( 'ThreeJS' );
+	container.appendChild( renderer.domElement );
+
+	
+
+
+	// EVENTS
+	THREEx.WindowResize(renderer, camera);
+	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+	// CONTROLS
+	controls = new THREE.OrbitControls( camera, renderer.domElement );
+	// STATS
+	stats = new Stats();
+	stats.domElement.style.position = 'absolute';
+	stats.domElement.style.bottom = '0px';
+	stats.domElement.style.zIndex = 100;
+	container.appendChild( stats.domElement );
+	// LIGHT
+	var light = new THREE.DirectionalLight(0xffffff, 1, 100);
+	light.position.set(-500,550,500);
+	light.castShadow = true;
+
+	var ambientLight = new THREE.AmbientLight(0x00000f, 0.5);
+	scene.add(ambientLight);
+
+	
+
+
+
+
+
+
+	
+	var lightbulbGeometry = new THREE.SphereGeometry( 100, 16, 8 );
+	var lightbulbMaterial = new THREE.MeshBasicMaterial( { color: 0xffff44, transparent: false,  opacity: 0, blending: THREE.AdditiveBlending } );
+	var wireMaterial = new THREE.MeshPhongMaterial( { color: 0x000000, wireframe: false } );
+	var materialArray = [lightbulbMaterial, wireMaterial];
+	var lightbulb = THREE.SceneUtils.createMultiMaterialObject( lightbulbGeometry, materialArray );
+	// var lightbulb = new THREE.Mesh( lightbulbGeometry, lightbulbMaterial );
+	lightbulb.position = light.position;
+	// lightbulb.material.;
+	scene.add(lightbulb);
+	scene.add(light);
+
+	//Shadow Propertie
+
+
+	// FLOOR
+	var floorTexture = new THREE.ImageUtils.loadTexture( 'texture/floor.jpg' );
+	//floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
+	//floorTexture.repeat.set( 10, 10 );
+	var floorMaterial = new THREE.MeshPhongMaterial( { map: floorTexture, side: THREE.DoubleSide } );
+	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	floor.position.y = -0.5;
+	floor.rotation.x = Math.PI / 2;
+	floor.receiveShadow = true;
+	scene.add(floor);
+	// SKYBOX/FOG
+	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
+	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
+	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
+	// scene.add(skyBox);
+	scene.fog = new THREE.FogExp2( 0x9999ff, 0.00025 );
+	
+
+
+
+	////////////
+	// CUSTOM //
+	////////////
+	
+
+
+
+	// New Table
+
+	var group = new THREE.Object3D();
+
+	var cubeMaterialArray = [];
+	
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x00d841 } ) );
+
+	var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
+
+	var cubeGeometry = new THREE.CubeGeometry(250, 15, 400, 1, 1, 1 );
+
+	surface = new THREE.Mesh( cubeGeometry, cubeMaterials );
+	surface.position.set(0, 200, 0);
+	group.add( surface );
+
+
+	//Side Bar long
+
+	// Create an array of materials to be used in a cube, one for each side
+	var cubeMaterialArray = [];
+	// order to add materials: x+,x-,y+,y-,z+,z-
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshPhongMaterial( { color: 0x776749 } ) );
+	
+
+	var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
+
+	// Cube parameters: width (x), height (y), depth (z), 
+	//        (optional) segments along x, segments along y, segments along z
+	var cubeGeometry = new THREE.CubeGeometry(30, 25, 430, 1, 1, 1 );
+	
+	// using THREE.MeshFaceMaterial() in the constructor below
+	//   causes the mesh to use the materials stored in the geometry
+	cube = new THREE.Mesh( cubeGeometry, cubeMaterials );
+	cube.position.set(125, 205, 0);
+	group.add( cube );		
+
+
+	//Side Bar long
+
+	// Create an array of materials to be used in a cube, one for each side
+	var cubeMaterialArray = [];
+	// order to add materials: x+,x-,y+,y-,z+,z-
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
+	// Cube parameters: width (x), height (y), depth (z), 
+	//        (optional) segments along x, segments along y, segments along z
+	var cubeGeometry = new THREE.CubeGeometry(30, 25, 430, 1, 1, 1 );
+	// using THREE.MeshFaceMaterial() in the constructor below
+	//   causes the mesh to use the materials stored in the geometry
+	cube = new THREE.Mesh( cubeGeometry, cubeMaterials );
+	cube.position.set(-125, 205, 0);
+	group.add( cube );
+
+
+	//Side Bar short
+
+	// Create an array of materials to be used in a cube, one for each side
+	var cubeMaterialArray = [];
+	// order to add materials: x+,x-,y+,y-,z+,z-
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
+	// Cube parameters: width (x), height (y), depth (z), 
+	//        (optional) segments along x, segments along y, segments along z
+	var cubeGeometry = new THREE.CubeGeometry(280, 25, 30, 1, 1, 1 );
+	// using THREE.MeshFaceMaterial() in the constructor below
+	//   causes the mesh to use the materials stored in the geometry
+	cube = new THREE.Mesh( cubeGeometry, cubeMaterials );
+	cube.position.set(0, 205, 200);
+	group.add( cube );
+
+
+	//Side Bar long
+
+	// Create an array of materials to be used in a cube, one for each side
+	var cubeMaterialArray = [];
+	// order to add materials: x+,x-,y+,y-,z+,z-
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	cubeMaterialArray.push( new THREE.MeshLambertMaterial( { color: 0x776749 } ) );
+	var cubeMaterials = new THREE.MeshFaceMaterial( cubeMaterialArray );
+	// Cube parameters: width (x), height (y), depth (z), 
+	//        (optional) segments along x, segments along y, segments along z
+	var cubeGeometry = new THREE.CubeGeometry(280, 25, 30, 1, 1, 1 );
+	// using THREE.MeshFaceMaterial() in the constructor below
+	//   causes the mesh to use the materials stored in the geometry
+	cube = new THREE.Mesh( cubeGeometry, cubeMaterials );
+	cube.position.set(0, 205, -200);
+	group.add( cube );
+
+
+
+	// Leg 1 center
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(90, 100, 0);
+	group.add( cylinder );
+
+
+	// Leg 2 center
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(-90, 100, 0);
+	group.add( cylinder );
+
+
+	// Leg 3 corner
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(90, 100, 160);
+	group.add( cylinder );
+
+
+	// Leg 4 corner
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(90, 100, -160);
+	group.add( cylinder );
+
+
+	// Leg 5 corner
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(-90, 100, 160);
+	group.add( cylinder );
+
+
+	// Leg 6 corner
+
+	var geometry = new THREE.CylinderGeometry( 20, 30, 200, 32 );
+	var material = new THREE.MeshPhongMaterial( {color: 0x2d2814} );
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.position.set(-90, 100, -160);
+	group.add( cylinder );
+
+
+	//Balls
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xffff00} );   //yellow
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(0, 215, 0);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0x002b70} );	//blue
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(30, 215, 35);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0x00a002} );	//green
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(50, 215, 5);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0x000000} );	//black
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(10, 215, 85);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xce00b6} );	//pink
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(18, 215, -75);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xad0000} );	//red1
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(8, 215, -110);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xad0000} );	//red2
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(-38, 215, -120);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xad0000} );	//red3
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(65, 215, 135);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xad0000} );	//red4
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(-30, 215, 25);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 7, 32, 32 );
+	var material = new THREE.MeshLambertMaterial( {color: 0xffffff} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(45, 215, 25);
+	group.add( sphere );
+
+
+	//Holes
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(103, 206, 178);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(-103, 206, 178);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(103, 206, -178);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(-103, 206, -178);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(103, 206, 0);
+	group.add( sphere );
+
+	var geometry = new THREE.SphereGeometry( 12, 32, 32 );
+	var material = new THREE.MeshBasicMaterial( {color: 0x000000} );	//white
+	var sphere = new THREE.Mesh( geometry, material );
+	sphere.position.set(-103, 206, 0);
+	group.add( sphere );
+
+	group.castShadow = true;
+
+	scene.add( group );
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	gui = new dat.GUI();
+	
+	parameters = 
+	{
+		x: 0, 
+		y: 30, 
+		z: 0,
+		material: "Phong",
+		color: "#ff0000", // color (change "#" to "0x")
+		opacity: 1, 
+		visible: true,
+		reset: function() { resetCube() }
+	};
+
+
+	var folder1 = gui.addFolder('Position');
+	var cubeX = folder1.add( parameters, 'x' ).min(-200).max(200).step(1).listen();
+	var cubeY = folder1.add( parameters, 'y' ).min(0).max(100).step(1).listen();
+	var cubeZ = folder1.add( parameters, 'z' ).min(-200).max(200).step(1).listen();
+	folder1.open();
+	
+	cubeX.onChange(function(value) 
+	{   group.position.x = value;   });
+	cubeY.onChange(function(value) 
+	{   group.position.y = value;   });
+	cubeZ.onChange(function(value) 
+	{   group.position.z = value;   });
+
+	var cubeMaterial = gui.add( parameters, 'material', [ "Basic", "Lambert", "Phong", "Wireframe" ] ).name('Material Type').listen();
+	cubeMaterial.onChange(function(value) 
+	{   updateCube();   });
+	
+	var cubeColor = gui.addColor( parameters, 'color' ).name('Color').listen();
+	cubeColor.onChange(function(value) // onFinishChange
+	{   surface.material.color.setHex( value.replace("#", "0x") );  });
+	
+	var cubeOpacity = gui.add( parameters, 'opacity' ).min(0).max(1).step(0.01).name('Opacity').listen();
+	cubeOpacity.onChange(function(value)
+	{   surface.material.opacity = value;   });
+	
+	
+	var cubeVisible = gui.add( parameters, 'visible' ).name('Glass Top').listen();
+	cubeVisible.onChange(function(value) 
+	{   surface.visible = value;  	});
+
+		
+	gui.add( parameters, 'reset' ).name("Reset");
+	
+	gui.open();
+}
+
+function updateCube()
+{
+	var value = parameters.material;
+	var newMaterial;
+	if (value == "Basic")
+		newMaterial = new THREE.MeshBasicMaterial( { color: 0x00b50f } );
+	else if (value == "Lambert")
+		newMaterial = new THREE.MeshLambertMaterial( { color: 0x00b50f } );
+	else if (value == "Phong")
+		newMaterial = new THREE.MeshPhongMaterial( { color: 0x00b50f } );
+	else // (value == "Wireframe")
+		newMaterial = new THREE.MeshBasicMaterial( { wireframe: true } );
+	surface.material = newMaterial;
+	
+	group.position.x = parameters.x;
+	group.position.y = parameters.y;
+	group.position.z = parameters.z;
+	surface.material.color.setHex( parameters.color.replace("#", "0x") );
+	surface.material.opacity = parameters.opacity;  
+	surface.material.transparent = true;
+	surface.visible = parameters.visible;
+	
+}
+
+function resetCube()
+{
+	parameters.x = 0;
+	parameters.y = 30;
+	parameters.z = 0;
+	parameters.color = "#ff0000";
+	parameters.opacity = 1;
+	parameters.visible = true;
+	parameters.material = "Phong";
+	updateCube();
+}
+
+function alertMessage( message )
+{
+	alert( message );
+}
+
+function animate() 
+{
+    requestAnimationFrame( animate );
+	render();		
+	update();
+}
+
+function update()
+{
+	if ( keyboard.pressed("z") ) 
+	{ 
+		// do something
+	}
+	
+	controls.update();
+	stats.update();
+}
+
+function render() 
+{
+	renderer.render( scene, camera );
+}
+
+
+
+</script>
+
+</body>
+</html>
